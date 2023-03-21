@@ -29,11 +29,10 @@ fs.createReadStream(inputFile)
     const price = Web3.utils.toWei(priceStr.toString(), 'ether');
     const name = row[1];
     console.log(`Adding product ${row[0]}: ${name} (${priceStr})`);
-    const accounts = await web3.eth.getAccounts();
     const result = await contract.methods.addProduct(id, name, price).send({ from: fromAddress });
-    fs.writeFileSync('transaction_hashes.csv', transactionHashes.join(','));
+    fs.writeFileSync('transaction_hashes.csv', transactionHashes.join('\n'));
     console.log(`Transaction hash: ${result.transactionHash}`);
     transactionHashes.push(result.transactionHash);
-    console.log('Finished adding product');
+    console.log('All products added successfully');
   });
 
