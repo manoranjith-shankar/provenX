@@ -1,25 +1,12 @@
 
 export function login(req, res, next) {
-return(
-    export default function login(){
+return( function login(){
         return(
-            <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>PROVEN X</title>
-        <link rel="stylesheet" href="login.css">
-    </head>
-    <body>
-        <form>
-            div class="container" id="container">
+            <div class="container" id="container">
             <div class="form-container sign-up-container">
                 <form action="#">
                     <h1>Create Account</h1>
                     <div class="social-container">
-                      
                     </div>
                     <span>or use your email for registration</span>
                     <input type="text" placeholder="Name" />
@@ -31,10 +18,7 @@ return(
             <div class="form-container sign-in-container">
                 <form action="#">
                     <h1>Sign in</h1>
-                    <div class="social-container">
-                       
-                    </div>
-    
+                    <div class="social-container"></div>
                     <input type="email" placeholder="Email/ Manufacturer ID" />
                     <input type="password" placeholder="Password" />
                     <a href="#">Forgot your password?</a>
@@ -57,11 +41,4 @@ return(
                 </div>
             </div>
         </div>
-        </form>
-    </body>
-    
-    
-        )
-    }
-      )
-}
+)}};
