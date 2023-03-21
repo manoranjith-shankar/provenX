@@ -52,3 +52,33 @@ Finished adding product
 Transaction hash: 0x8d848f30bf861dc627588e59f1f0707e08141af0b591262585d3912037c2346f
 Finished adding product...
 ```
+```bash
+node qrcode.js
+```
+```
+QR code for transaction 3 generated.
+QR code for transaction 5 generated.
+QR code for transaction 4 generated.
+QR code for transaction 6 generated.
+QR code for transaction 2 generated.
+QR code for transaction 7 generated.
+QR code for transaction 11 generated.
+QR code for transaction 8 generated.
+QR code for transaction 12 generated.
+QR code for transaction 10 generated.
+QR code for transaction 9 generated.
+QR code for transaction 13 generated.
+QR code for transaction 14 generated.
+QR code for transaction 15 generated.
+QR code for transaction 16 generated.
+QR code for transaction 18 generated.
+QR code for transaction 19 generated.
+QR code for transaction 17 generated.
+QR code for transaction 20 generated.
+QR code for transaction 22 generated.
+QR code for transaction 21 generated.
+QR code for transaction 0 generated.
+QR code for transaction 23 generated.
+QR code for transaction 24 generated.
+QR code for transaction 1 generated.
+```
