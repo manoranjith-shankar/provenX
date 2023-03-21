@@ -55,6 +55,7 @@ Finished adding product...
 ```bash
 node qrcode.js
 ```
+```
 QR code for transaction 3 generated.
 QR code for transaction 5 generated.
 QR code for transaction 4 generated.
