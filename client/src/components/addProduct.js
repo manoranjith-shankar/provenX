@@ -118,19 +118,20 @@ function AddProduct() {
             Add
           </button>
         </form>
+        <div className={styles.card}>
         {transaction && (
             <div className={styles.transaction}>
-              <span>Your transaction is successful:</span>
+              <span>Product Added successfully:</span>
               <a
                 href={`https://explorer.volary.io/tx/${transaction}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.link}
-              >
-                View on explorer {transaction}
+              >{transaction}
               </a>
             </div>
           )}
+          </div>
       </div>
     </div>
   );

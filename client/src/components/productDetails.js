@@ -49,28 +49,14 @@ function ProductDetails() {
         <button type="submit" className={styles.button}>Get details</button>
       </form>
 
-      <div className={styles.track}>
-      {/* Display the product details */}
+      {/* Display the product details and the transaction hash */}
       {productInfo.name && (
-        <div>
+        <div className={styles.card}>
           <p>Product Name: {productInfo.name}</p>
           <p>Product Price: {productInfo.price.toString()}</p>
           <p>Product Description: {productInfo.productDescription}</p>
           <p>Owner: {productInfo.owner}</p>
         </div>
-      )}
-      </div>
-
-      {/* Display the transaction hash */}
-      {transaction && (
-        <a
-          href={`https://explorer.volary.io/tx/${transaction}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.link}
-        >
-          Your transaction is successful: View on explorer {transaction}
-        </a>
       )}
     </div>
   );
