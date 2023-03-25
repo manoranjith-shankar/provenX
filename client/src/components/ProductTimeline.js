@@ -4,12 +4,12 @@ import styles from '../styles/app.module.css';
 import { useAccount } from 'wagmi';
 import supplychain from '../contracts/supplychain.json';
 
-
-function ProductDetails() {
+function ProductTimeline() {
   const { account } = useAccount();
   const [productId, setProductId] = useState('');
-  const [productInfo, setProductInfo] = useState({});
+  const [timelineData, setTimelineData] = useState({ timestamps: [] });
   const [transaction, setTransaction] = useState('');
+  const [Error, setError] = useState('');
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -22,44 +22,57 @@ function ProductDetails() {
       provider.getSigner(account)
     );
 
-    // Call the contract method to get the product details
+    // Call the contract method to get the product timeline data
     try {
-      const productDetails = await contract.getProductInfo(productId);
-      setProductInfo(productDetails);
-      setTransaction(productDetails.hash);
+      const timelineDetails = await contract.getProductTimeline(productId);
+      setTimelineData(timelineDetails);
+      setTransaction(timelineDetails.hash);
+      console.log(timelineDetails);
     } catch (err) {
-      console.log(err);
+      setError(err);
     }
+    setTimeout(() => {
+      setError('');
+    }, 3000);
   }
 
   return (
     <div className={styles.card}>
       <form onSubmit={handleSubmit} className={styles.card1}>
-        <h2>Get ProductDetails</h2>
+        <h2>Product Timeline</h2>
         <div>
           <label htmlFor="productId">Product Id</label>
           <input
             type="text"
-            id="Id"
+            id="productId"
             value={productId}
             onChange={(event) => setProductId(event.target.value)}
             required
           />
         </div>
-        <button type="submit" className={styles.button}>Get details</button>
+        <button type="submit" className={styles.button}>
+          Get Timeline
+        </button>
       </form>
 
-      <div className={styles.track}>
-      {/* Display the product details */}
-      {productInfo.name && (
+      {/* Display the timeline data */}
+      {timelineData.timestamps && timelineData.timestamps.length > 0 && (
         <div>
-          <p>Product Name: {productInfo.name}</p>
-          <p>Product Price: {productInfo.price.toString()}</p>
-          <p>Product Description: {productInfo.productDescription}</p>
-          <p>Owner: {productInfo.owner}</p>
+            <h3>Timeline Data:</h3>
+            <ul>
+            {timelineData.timestamps.map((timestamp, i) => (
+                <li key={i}>
+                <p>Timestamp: {timestamp}</p>
+                <p>Description: {timelineData.descriptions[i]}</p>
+                <p>New Owner Type: {timelineData.newOwnerTypes[i]}</p>
+                <p>Owner: {timelineData.owners[i]}</p>
+                </li>
+            ))}
+            </ul>
         </div>
-      )}
-      </div>
+        )}
+
+
 
       {/* Display the transaction hash */}
       {transaction && (
@@ -72,8 +85,13 @@ function ProductDetails() {
           Your transaction is successful: View on explorer {transaction}
         </a>
       )}
+
+      {/* Display error message */}
+      {Error && (
+        <p style={{ fontSize: '16px', color: 'red' }}>{Error.message}</p>
+      )}
     </div>
   );
 }
 
-export default ProductDetails;
+export default ProductTimeline;

@@ -7,6 +7,7 @@ import { ethers } from 'ethers';
 import ProductDetails from './components/productDetails';
 import AddProduct from '../src/components/addProduct';
 import TransferOwnership from './components/TransferOwnership';
+import ProductTimeline from './components/ProductTimeline';
 
 function App() {
   const { account } = useAccount(); 
@@ -56,6 +57,7 @@ function App() {
           <AddProduct />
           <TransferOwnership />
           <ProductDetails />
+          <ProductTimeline />
         </div>
 
       <div className={styles.grid}>
