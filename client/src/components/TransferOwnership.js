@@ -4,10 +4,12 @@ import { ethers } from 'ethers';
 import styles from '../styles/app.module.css';
 import { useAccount } from 'wagmi';
 
-function TrackProduct(props) {
+function TransferOwnership(props) {
   const { account } = useAccount();
   const [productId, setProductId] = useState('');
   const [productInfo, setProductInfo] = useState({});
+  const [newOwnerType, setNewOwnerType] = useState('');
+  const [newOwner, setNewOwner] = useState('');
   const [transaction, setTransaction] = useState('');
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -23,8 +25,9 @@ function TrackProduct(props) {
 
     // Call the contract method to get the product details
     try {
-      const productDetails = await contract.getProductInfo(productId);
+      const productDetails = await contract.transferOwnership(productId, newOwnerType, newOwner);
       setProductInfo(productDetails);
+      setTransaction(productDetails.hash);
     } catch (err) {
       console.log(err);
     }
@@ -33,7 +36,7 @@ function TrackProduct(props) {
   return (
     <div className={styles.card}>
       <form onSubmit={handleSubmit} className={styles.card1}>
-        <h2>Track Product</h2>
+        <h2>TransferOwnership</h2>
         <div>
           <label htmlFor="productId">Product Id</label>
           <input
@@ -44,10 +47,29 @@ function TrackProduct(props) {
             required
           />
         </div>
-        <button type="submit" className={styles.button}>Get details</button>
+        <div>
+          <label htmlFor="newOwnerType">newOwnerType</label>
+          <input
+            type="text"
+            id="newOwnerType"
+            value={newOwnerType}
+            onChange={(event) => setNewOwnerType(event.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="newOwner">newOwner address</label>
+          <input
+            type="address"
+            id="newOwner"
+            value={newOwner}
+            onChange={(event) => setNewOwner(event.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className={styles.button}>TransferOwnership</button>
       </form>
 
-      <div className={styles.track}>
       {/* Display the product details */}
       {productInfo.name && (
         <div>
@@ -57,7 +79,6 @@ function TrackProduct(props) {
           <p>Owner: {productInfo.owner}</p>
         </div>
       )}
-      </div>
 
       {/* Display the transaction hash */}
       {transaction && (
@@ -74,4 +95,4 @@ function TrackProduct(props) {
   );
 }
 
-export default TrackProduct;
+export default TransferOwnership;

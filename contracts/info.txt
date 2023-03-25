@@ -1,0 +1,10 @@
+Name: Manufacturer.sol
+
+1. addProduct - adds products to the chain - id[str], name[str], price[uint], product_description[str]
+2. getProductInfo -  a mapping that stores the product information based on the product ID, which the function can query to retrieve the information.
+  - id[str] as input and returns the product information (name, price, product_description), currentOwner[address].
+3. transferOwnership - transfer the ownership of a product from one party to another.
+  - productID[str],newOwnerType: “retailer”,"distributor”,”Consumer”[str],address: newOwner[address]
+4. getProductTimeline - This function is used to retrieve the entire timeline of a product. This timeline includes all the events that have been added to the product's history, along with their corresponding timestamps and details.
+
+create the contract in such a way that the products can only be transferred by its owner (who added the product at the first place)

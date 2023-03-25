@@ -158,6 +158,13 @@
 
 }
 
+.track{
+  display: flex;
+  flex-direction: row;
+  margin-right: 200px;
+  justify-content:space-around;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

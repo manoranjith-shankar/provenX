@@ -5,7 +5,8 @@ import styles from './styles/app.module.css';
 import Products from './contracts/Products.json';
 import { ethers } from 'ethers';
 import TrackProduct from './components/TrackProduct';
-import AddProduct from './components/addProduct';
+import AddProduct from '../src/components/addProduct';
+import TransferOwnership from './components/TransferOwnership';
 
 function App() {
   const { account } = useAccount(); 
@@ -52,6 +53,12 @@ function App() {
       <h3>Connection status:  <a href=' ' style={{ color: '#0E76FD' }}>{ address }</a></h3>
       
       <div className={styles.grid}>
+          <AddProduct productId={productId}/>
+          <TransferOwnership />
+          <TrackProduct productId={productId} setProductId={setProductId}/>
+        </div>
+
+      <div className={styles.grid}>
         <a className={styles.card} href="https://provenx.tech">
           <h2>Manufacturer Documentation &rarr;</h2>
           <p>Learn how to use ProvenX as a Manufacturer</p>
@@ -67,10 +74,6 @@ function App() {
           <h2>View this project on github &rarr;</h2>
         </a>
       </div>
-        <div className={styles.card}>
-          <AddProduct productId={productId}/>
-          <TrackProduct productId={productId} setProductId={setProductId}/>
-        </div>
         
         <footer className={styles.footer}>
           <h3 style={{ display: 'flex', alignItems: 'center' }}>

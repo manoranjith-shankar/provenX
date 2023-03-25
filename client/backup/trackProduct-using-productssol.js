@@ -1,32 +1,37 @@
 import { useState } from 'react';
-import Manufacturer from '../contracts/Manufacturer.json';
+import Products from '../contracts/Products.json';
 import { ethers } from 'ethers';
 import styles from '../styles/app.module.css';
 import { useAccount } from 'wagmi';
 
 function TrackProduct(props) {
-  const { account } = useAccount();
-  const [productId, setProductId] = useState('');
-  const [productInfo, setProductInfo] = useState({});
+  const { account } = useAccount(); 
+  const [index, setIndex] = useState('');
+  const [productName, setProductName] = useState('');
+  const [productPrice, setProductPrice] = useState('');
   const [transaction, setTransaction] = useState('');
-
   const provider = new ethers.providers.Web3Provider(window.ethereum);
+  
 
   async function handleSubmit(event) {
     event.preventDefault();
-
+    
+    
     const contract = new ethers.Contract(
-      Manufacturer.networks['8888'].address,
-      Manufacturer.abi,
+      Products.networks['8888'].address,
+      Products.abi,
       provider.getSigner(account)
     );
 
+    const productCount = await contract.getProductsCount();
+    console.log(productCount);
+
     // Call the contract method to get the product details
-    try {
-      const productDetails = await contract.getProductInfo(productId);
-      setProductInfo(productDetails);
-    } catch (err) {
-      console.log(err);
+    const productDetails = await contract.getProduct(index);
+
+    if (productDetails.id && productDetails.name && productDetails.price) {
+      setProductName(productDetails.name);
+      setProductPrice(productDetails.price);
     }
   }
 
@@ -35,29 +40,26 @@ function TrackProduct(props) {
       <form onSubmit={handleSubmit} className={styles.card1}>
         <h2>Track Product</h2>
         <div>
-          <label htmlFor="productId">Product Id</label>
+          <label htmlFor="index">Product Index</label>
           <input
             type="text"
-            id="Id"
-            value={productId}
-            onChange={(event) => setProductId(event.target.value)}
+            id="index"
+            value={index}
+            onChange={(event) => setIndex(event.target.value)}
             required
           />
         </div>
         <button type="submit" className={styles.button}>Get details</button>
+        <button className={styles.button}>productCount</button>
       </form>
 
-      <div className={styles.track}>
       {/* Display the product details */}
-      {productInfo.name && (
+      {productName && (
         <div>
-          <p>Product Name: {productInfo.name}</p>
-          <p>Product Price: {productInfo.price.toString()}</p>
-          <p>Product Description: {productInfo.productDescription}</p>
-          <p>Owner: {productInfo.owner}</p>
+          <p>Product Name: {productName}</p>
+          <p>Product Price: {productPrice}</p>
         </div>
       )}
-      </div>
 
       {/* Display the transaction hash */}
       {transaction && (
