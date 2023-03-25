@@ -8,7 +8,7 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const mnemonic = 'frown reason middle hen hidden tool vault mixed december loud jazz burden'; // replace with your actual mnemonic phrase
 const providerUrl = 'https://rpc-public-testnet.volary.io/'; // replace with your actual provider URL
 const contractAddress = '0x00161e8a962111A8eb9DE5c74E7c45793D101244'; // Replace with the actual contract address
-const abi = require('./build/contracts/Products.json').abi;
+const abi = require('./client/src/contracts/Products.json').abi;
 
 const web3 = new Web3(new HDWalletProvider(mnemonic, providerUrl,{timeout: 300000}));
 const contract = new web3.eth.Contract(abi, contractAddress);
