@@ -105,7 +105,7 @@ function TransferOwnership() {
           rel="noopener noreferrer"
           className={styles.link}
         >
-          Your transaction is successful: View on explorer {transaction}
+          Your transaction is successful: {transaction}
         </a>
       )}
     </div>

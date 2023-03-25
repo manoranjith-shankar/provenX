@@ -10,15 +10,12 @@ function ProductTimeline() {
   const [timelineData, setTimelineData] = useState({ timestamps: [] });
   const [transaction, setTransaction] = useState('');
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // add new state variable
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
   async function handleSubmit(event) {
     event.preventDefault();
-
-    setIsLoading(true); // set isLoading to true
-
+    
     const contract = new ethers.Contract(
       supplychain.networks['8888'].address,
       supplychain.abi,
@@ -32,11 +29,9 @@ function ProductTimeline() {
       console.log(`Timeline data for productId ${productId}: `, timelineDetails);
       setTimelineData(timelineDetails);
       setTransaction(timelineDetails.hash);
-      setIsLoading(false); // set isLoading to false on success
     } catch (err) {
       console.error(`Error getting timeline data for productId ${productId}: `, err);
       setError(err);
-      setIsLoading(false); // set isLoading to false on error
     }
   }
 
@@ -61,8 +56,6 @@ function ProductTimeline() {
         </button>
       </form>
 
-      {/* Display loading indicator */}
-      {isLoading && <p>Loading...</p>}
 
       {/* Display the timeline data */}
       {timelineData && timelineData.timestamps && timelineData.timestamps.length > 0 && (

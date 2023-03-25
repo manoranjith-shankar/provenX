@@ -118,10 +118,11 @@ function AddProduct() {
             Add
           </button>
         </form>
-        <div className={styles.card}>
+      </div>
+        <div className={styles.grid}>
         {transaction && (
             <div className={styles.transaction}>
-              <span>Product Added successfully:</span>
+              <span style={{ color: '#000', fontSize: '1.5rem' }}>Product Added successfully:</span>
               <a
                 href={`https://explorer.volary.io/tx/${transaction}`}
                 target="_blank"
@@ -132,7 +133,6 @@ function AddProduct() {
             </div>
           )}
           </div>
-      </div>
     </div>
   );
 }
