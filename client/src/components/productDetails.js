@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { ethers } from 'ethers';
 import styles from '../styles/app.module.css';
 import { useAccount } from 'wagmi';
+import supplychain from '../contracts/supplychain.json';
 
-function TrackProduct(props) {
+
+function ProductDetails() {
   const { account } = useAccount();
   const [productId, setProductId] = useState('');
   const [productInfo, setProductInfo] = useState({});
-  const [transaction, setTransaction] = useState('');
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -15,8 +16,8 @@ function TrackProduct(props) {
     event.preventDefault();
 
     const contract = new ethers.Contract(
-      Manufacturer.networks['8888'].address,
-      Manufacturer.abi,
+      supplychain.networks['8888'].address,
+      supplychain.abi,
       provider.getSigner(account)
     );
 
@@ -32,7 +33,7 @@ function TrackProduct(props) {
   return (
     <div className={styles.card}>
       <form onSubmit={handleSubmit} className={styles.card1}>
-        <h2>Track Product</h2>
+        <h2>Get ProductDetails</h2>
         <div>
           <label htmlFor="productId">Product Id</label>
           <input
@@ -57,20 +58,8 @@ function TrackProduct(props) {
         </div>
       )}
       </div>
-
-      {/* Display the transaction hash */}
-      {transaction && (
-        <a
-          href={`https://explorer.volary.io/tx/${transaction}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.link}
-        >
-          Your transaction is successful: View on explorer {transaction}
-        </a>
-      )}
     </div>
   );
 }
 
-export default TrackProduct;
+export default ProductDetails;

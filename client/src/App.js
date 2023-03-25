@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styles from './styles/app.module.css';
 import Products from './contracts/Products.json';
 import { ethers } from 'ethers';
-import TrackProduct from './components/TrackProduct';
+import ProductDetails from './components/productDetails';
 import AddProduct from '../src/components/addProduct';
 import TransferOwnership from './components/TransferOwnership';
 
@@ -53,9 +53,9 @@ function App() {
       <h3>Connection status:  <a href=' ' style={{ color: '#0E76FD' }}>{ address }</a></h3>
       
       <div className={styles.grid}>
-          <AddProduct productId={productId}/>
+          <AddProduct />
           <TransferOwnership />
-          <TrackProduct productId={productId} setProductId={setProductId}/>
+          <ProductDetails />
         </div>
 
       <div className={styles.grid}>

@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-contract Manufacturer {
+contract supplychain {
     struct Product {
         string name;
         uint price;

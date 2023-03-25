@@ -2,14 +2,18 @@ import { useState } from 'react';
 import { ethers } from 'ethers';
 import styles from '../styles/app.module.css';
 import { useAccount } from 'wagmi';
+import supplychain from '../contracts/supplychain.json';
 
-function TransferOwnership(props) {
+
+function TransferOwnership() {
   const { account } = useAccount();
   const [productId, setProductId] = useState('');
   const [productInfo, setProductInfo] = useState({});
   const [newOwnerType, setNewOwnerType] = useState('');
   const [newOwner, setNewOwner] = useState('');
+  const [newOwnerId, setNewOwnerId] = useState('');
   const [transaction, setTransaction] = useState('');
+  const [Error, setError] = useState('');
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
@@ -17,19 +21,22 @@ function TransferOwnership(props) {
     event.preventDefault();
 
     const contract = new ethers.Contract(
-      Manufacturer.networks['8888'].address,
-      Manufacturer.abi,
+      supplychain.networks['8888'].address,
+      supplychain.abi,
       provider.getSigner(account)
     );
 
     // Call the contract method to get the product details
     try {
-      const productDetails = await contract.transferOwnership(productId, newOwnerType, newOwner);
+      const productDetails = await contract.transferOwnership(productId, newOwnerType, newOwner, newOwnerId);
       setProductInfo(productDetails);
       setTransaction(productDetails.hash);
     } catch (err) {
-      console.log(err);
+      setError(err);
     }
+    setTimeout(() => {
+      setError('');
+    }, 3000);
   }
 
   return (
@@ -55,6 +62,7 @@ function TransferOwnership(props) {
             onChange={(event) => setNewOwnerType(event.target.value)}
             required
           />
+          {Error && <p style={{ fontSize:"16px", color: 'red' }}>Invalid OwnerType</p>}
         </div>
         <div>
           <label htmlFor="newOwner">newOwner address</label>
@@ -63,6 +71,16 @@ function TransferOwnership(props) {
             id="newOwner"
             value={newOwner}
             onChange={(event) => setNewOwner(event.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="newOwnerId">newOwnerId</label>
+          <input
+            type="Id"
+            id="newOwnerId"
+            value={newOwnerId}
+            onChange={(event) => setNewOwnerId(event.target.value)}
             required
           />
         </div>

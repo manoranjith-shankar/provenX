@@ -2,8 +2,9 @@ import { useAccount } from 'wagmi';
 import { useState } from 'react';
 import styles from '../styles/app.module.css';
 import { ethers } from 'ethers';
+import supplychain from '../contracts/supplychain.json';
 
-function AddProduct(props) {
+function AddProduct() {
   const { account } = useAccount();
   let { address } = useAccount();
   if (!address) {
@@ -46,6 +47,7 @@ function AddProduct(props) {
     setProductId('');
     setProductName('');
     setProductPrice('');
+    setproductBatchId('');
     setProductDescription('');
 
     setTimeout(() => {
