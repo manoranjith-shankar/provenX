@@ -8,3 +8,8 @@ Name: Manufacturer.sol
 4. getProductTimeline - This function is used to retrieve the entire timeline of a product. This timeline includes all the events that have been added to the product's history, along with their corresponding timestamps and details.
 
 create the contract in such a way that the products can only be transferred by its owner (who added the product at the first place)
+
+Name: Consumer.sol
+
+1. getProductInfo - getProductInfo -  a mapping that stores the product information based on the product ID, which the function can query to retrieve the information.
+  - id[str] as input and returns the product information (name, price, product_description), currentOwner[address].
