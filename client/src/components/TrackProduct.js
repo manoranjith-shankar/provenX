@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Manufacturer from '../contracts/Manufacturer.json';
 import { ethers } from 'ethers';
 import styles from '../styles/app.module.css';
 import { useAccount } from 'wagmi';

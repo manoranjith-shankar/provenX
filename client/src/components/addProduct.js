@@ -1,7 +1,6 @@
 import { useAccount } from 'wagmi';
 import { useState } from 'react';
 import styles from '../styles/app.module.css';
-import Manufacturer from '../contracts/Manufacturer.json';
 import { ethers } from 'ethers';
 
 function AddProduct(props) {
@@ -15,6 +14,7 @@ function AddProduct(props) {
   const [productId, setProductId] = useState('');
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
+  const [productbatchId, setproductBatchId] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [Error, setError] = useState('');
   const [transaction, setTransaction] = useState('');
@@ -23,8 +23,8 @@ function AddProduct(props) {
     event.preventDefault();
 
     const contract = new ethers.Contract(
-      Manufacturer.networks['8888'].address,
-      Manufacturer.abi,
+      supplychain.networks['8888'].address,
+      supplychain.abi,
       provider.getSigner(account)
     );
 
@@ -33,6 +33,7 @@ function AddProduct(props) {
           productId,
           productName,
           productPrice,
+          productbatchId,
           productDescription
         );
         console.log(result);
@@ -86,6 +87,17 @@ function AddProduct(props) {
               id="productPrice"
               value={productPrice}
               onChange={(event) => setProductPrice(event.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="productbatchId">BacthId</label>
+            <input
+              type="number"
+              step="0.000000000000000001"
+              id="productbatchId"
+              value={productbatchId}
+              onChange={(event) => setproductBatchId(event.target.value)}
               required
             />
           </div>
