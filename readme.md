@@ -1,3 +1,12 @@
+# To get started clone the repo and head to client
+```bash
+npm install
+```
+```bash
+npm start
+```
+## This will start the deployment [localhost:3000]
+
 # Adding Multiple products to the chain and downloading the txn hashes
 
 Using this script, we can add multiple products to the chain and it console logs every txn hashes
