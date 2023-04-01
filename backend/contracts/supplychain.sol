@@ -66,8 +66,7 @@ contract supplychain {
     }
 
 
-  function getProductTimeline(string memory id) public view returns (uint[] memory, string[] memory, string[] memory, address[] memory, uint[] memory) {
-    uint[] storage timelineKeys = productTimelineKeys[id];
+  function getProductTimeline(string memory id) public view returns ( string[] memory, string[] memory, address[] memory, uint[] memory) {
     ProductEvent[] storage timelineEvents = productEvents[id];
 
     uint[] memory timestamps = new uint[](timelineEvents.length);
@@ -82,12 +81,12 @@ contract supplychain {
         owners[i] = timelineEvents[i].to;
     }
 
-    return (timelineKeys, descriptions, newOwnerTypes, owners, timestamps);
+    return ( descriptions, newOwnerTypes, owners, timestamps);
     }
 
 
     function isValidNewOwnerType(string memory newOwnerType) private pure returns (bool) {
-        string[4] memory validNewOwnerTypes = ["manufacturer","retailer", "distributor", "consumer"];
+        string[3] memory validNewOwnerTypes = ["retailer", "distributor", "consumer"];
         for (uint i = 0; i < validNewOwnerTypes.length; i++) {
             if (keccak256(abi.encodePacked(validNewOwnerTypes[i])) == keccak256(abi.encodePacked(newOwnerType))) {
                 return true;

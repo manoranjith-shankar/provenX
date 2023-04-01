@@ -56,9 +56,9 @@ function ProductTimeline() {
         </button>
       </form>
 
-
+    
       {/* Display the timeline data */}
-      {timelineData && timelineData.timestamps && timelineData.timestamps.length > 0 && (
+      {timelineData > 0 && (
         <div>
           <h3>Timeline Data:</h3>
           <ul>

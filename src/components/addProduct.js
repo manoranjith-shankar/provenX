@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styles from '../styles/app.module.css';
 import { ethers } from 'ethers';
 import supplychain from '../contracts/supplychain.json';
+import DisplayTransaction from './DisplayTransaction';
 
 function AddProduct() {
   const { account } = useAccount();
@@ -119,20 +120,7 @@ function AddProduct() {
           </button>
         </form>
       </div>
-        <div className={styles.grid}>
-        {transaction && (
-            <div className={styles.transaction}>
-              <span style={{ color: '#000', fontSize: '1.5rem' }}>Product Added successfully:</span>
-              <a
-                href={`https://explorer.volary.io/tx/${transaction}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.link}
-              >{transaction}
-              </a>
-            </div>
-          )}
-          </div>
+   
     </div>
   );
 }

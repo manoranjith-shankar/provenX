@@ -99,7 +99,7 @@ contracts_build_directory: "./client/src/contracts/",
       skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
       // contract-address: 0xD88fb82b8717B495E61026bE3a2E4508Aa908015 - Products.sol
       // contract-address: 0x20Cb80523c2f89cC29980f688549343B244Bd461 - Manufacturer.sol
-      // contract-address: 0x31952990819753c7F6235B11Ea49823BEAB3b1b9 - supplychain.sol
+      // contract-address: 0x49CEC6710Ba918760bBdD38eF231F390B431957c - supplychain.sol
     },
     //
     // Useful for private networks
