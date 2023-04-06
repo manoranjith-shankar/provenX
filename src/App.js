@@ -7,6 +7,7 @@ import TransferOwnership from './components/TransferOwnership';
 import ProductTimeline from './components/ProductTimeline';
 import DisplayTransaction from './components/DisplayTransaction';
 import AddMultipleProducts from './components/addMultipleProducts';
+import SideNavBar from './NavBar/SideNavBar';
 
 function App() {
   let { address } = useAccount();
@@ -31,7 +32,6 @@ function App() {
           <ProductDetails />
           <ProductTimeline  />
           <AddMultipleProducts />
-          <DisplayTransaction />
         </div>
 
       <div className={styles.grid}>
