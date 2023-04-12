@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styles from '../styles/app.module.css';
 import { ethers } from 'ethers';
 import supplychain from '../contracts/supplychain.json';
+import Papa from "papaparse";
 
 function AddMultipleProducts() {
   const { account } = useAccount();
@@ -12,82 +13,66 @@ function AddMultipleProducts() {
   }
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-  const [products, setProducts] = useState([]);
-  const [Error, setError] = useState('');
-  const [transaction, setTransaction] = useState('');
+  const [csvFile, setCsvFile] = useState(null);
+  const [productsAdded, setProductsAdded] = useState([]);
 
-  async function addProduct(productId, productName, productPrice, productbatchId, productDescription) {
-    const contract = new ethers.Contract(
-      supplychain.networks['8888'].address,
-      supplychain.abi,
-      provider.getSigner(account)
-    );
-  
-    try {
-      // Remove dollar sign and parse price as a number
-      const parsedPrice = parseFloat(productPrice.replace('$', ''));
-  
-      const result = await contract.addProduct(
-        productId,
-        productName,
-        ethers.utils.parseEther(parsedPrice.toString()), // Convert price to wei
-        productbatchId,
-        productDescription
-      );
-      console.log(result);
-      setTransaction(result.hash);
-      setError('');
-  
-      const productInfo = await contract.getProduct(productId);
-      console.log('Product Info:', productInfo);
-    } catch (err) {
-      setError(err.message);
-    }
-  }  
+  const handleFileChange = (e) => {
+    setCsvFile(e.target.files[0]);
+  };
 
-  async function handleFileUpload(event) {
-    event.preventDefault();
-  
-    const file = event.target.files[0];
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const reader = new FileReader();
-    reader.onload = async (event) => {
-      const text = event.target.result;
-      const rows = text.split('\n').map(row => row.split(','));
-      console.log('rows:', rows);
-      if (rows.length > 0) {
-        const newProducts = rows.map(row => ({
-          productId: row[0],
-          productName: row[1],
-          productPrice: row[2],
-          productbatchId: row[3],
-          productDescription: row[4],
-        }));
-        console.log('newProducts:', newProducts);
-        setProducts(newProducts);
-      
-        for (const product of newProducts) {
-          await addProduct(product.productId, product.productName, product.productPrice, product.productbatchId, product.productDescription);
+    reader.onload = async (e) => {
+      const text = e.target.result;
+      const { data } = Papa.parse(text, { header: false });
+      const newProducts = [];
+      const contract = new ethers.Contract(
+        supplychain.networks['8888'].address,
+        supplychain.abi,
+        provider.getSigner(account)
+      );
+      for (const row of data) {
+        const [id, name, price, batchId, productDescription] = row;
+        try {
+          const result = await contract.addProduct(id, name, parsePrice(price), parseInt(batchId), productDescription);
+          newProducts.push({ id, name, price, batchId, productDescription });
+        } catch (err) {
+          console.error(err);
         }
-      } else {
-        console.log('No data in file');
-      }      
+      }
+      setProductsAdded(newProducts);
     };
-    reader.readAsText(file);
-  }  
-  
+    reader.readAsText(csvFile);
+  };
+
+  const parsePrice = (price) => {
+    return ethers.utils.parseEther(price);
+  };
+
   return (
     <div className={styles.grid}>
       <div className={styles.card}>
-        <form onSubmit={handleFileUpload} className={styles.card1}>
-          <h2>Add Products</h2>
+        <form onSubmit={handleSubmit} className={styles.card1}>
+          <h2>Add Multiple Products</h2>
           <div>
-            <label htmlFor="file">CSV file:</label>
-            <input type="file" id="file" onChange={(event) => handleFileUpload(event)} />
+            <label htmlFor="csv-file">Upload CSV File:</label>
+            <input type="file" id="csv-file" accept=".csv" onChange={handleFileChange} />
           </div>
-          <button type="submit" className={styles.button}>
-            Add
-          </button>
+          <button type="submit" className={styles.button}>Add Products</button>
         </form>
+        {productsAdded.length > 0 && (
+          <div>
+            <h3>Products Added:</h3>
+            <ul>
+              {productsAdded.map((product) => (
+                <li key={product.id}>
+                  {product.name} ({product.id})
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

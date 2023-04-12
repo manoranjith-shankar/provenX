@@ -3,7 +3,6 @@ import { useState } from 'react';
 import styles from '../styles/app.module.css';
 import { ethers } from 'ethers';
 import supplychain from '../contracts/supplychain.json';
-import DisplayTransaction from './DisplayTransaction';
 
 function AddProduct() {
   const { account } = useAccount();
@@ -120,7 +119,6 @@ function AddProduct() {
           </button>
         </form>
       </div>
-   
     </div>
   );
 }

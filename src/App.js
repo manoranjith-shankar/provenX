@@ -5,7 +5,6 @@ import ProductDetails from './components/productDetails';
 import AddProduct from '../src/components/addProduct';
 import TransferOwnership from './components/TransferOwnership';
 import ProductTimeline from './components/ProductTimeline';
-import DisplayTransaction from './components/DisplayTransaction';
 import AddMultipleProducts from './components/addMultipleProducts';
 import SideNavBar from './NavBar/SideNavBar';
 
