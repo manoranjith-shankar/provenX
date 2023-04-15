@@ -4,9 +4,8 @@ import styles from './styles/app.module.css';
 import ProductDetails from './components/productDetails';
 import AddProduct from '../src/components/addProduct';
 import TransferOwnership from './components/TransferOwnership';
-import ProductTimeline from './components/ProductTimeline';
+import TotalProducts from './components/TotalProducts';
 import AddMultipleProducts from './components/addMultipleProducts';
-import SideNavBar from './NavBar/SideNavBar';
 
 function App() {
   let { address } = useAccount();
@@ -29,7 +28,7 @@ function App() {
           <AddProduct />
           <TransferOwnership />
           <ProductDetails />
-          <ProductTimeline  />
+          <TotalProducts />
           <AddMultipleProducts />
         </div>
 
@@ -44,7 +43,7 @@ function App() {
         </a>
         <a
           className={styles.card}
-          href="https://github.com/cheran2003/hack-a-nest"
+          href="https://github.com/manoranjith-shankar/hackverse4.0"
         >
           <h2>View this project on github &rarr;</h2>
         </a>

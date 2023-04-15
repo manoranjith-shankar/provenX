@@ -40,7 +40,7 @@ export const VolaryTestnet = {
   }
 
 const { chains, provider } = configureChains(
-  [mainnet,VolaryTestnet, polygon, polygonMumbai, optimism, arbitrum],
+  [mainnet, polygonMumbai, polygon, VolaryTestnet, optimism, arbitrum],
   [
     alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
     publicProvider()

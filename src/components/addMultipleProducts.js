@@ -28,7 +28,7 @@ function AddMultipleProducts() {
       const { data } = Papa.parse(text, { header: false });
       const newProducts = [];
       const contract = new ethers.Contract(
-        supplychain.networks['8888'].address,
+        supplychain.networks['80001'].address,
         supplychain.abi,
         provider.getSigner(account)
       );

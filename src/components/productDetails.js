@@ -17,7 +17,7 @@ function ProductDetails() {
     event.preventDefault();
 
     const contract = new ethers.Contract(
-      supplychain.networks['8888'].address,
+      supplychain.networks['80001'].address,
       supplychain.abi,
       provider.getSigner(account)
     );

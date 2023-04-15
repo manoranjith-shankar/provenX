@@ -57,7 +57,7 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
-contracts_build_directory: "./client/src/contracts/",
+contracts_build_directory: "../src/contracts/",
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
@@ -99,8 +99,16 @@ contracts_build_directory: "./client/src/contracts/",
       skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
       // contract-address: 0xD88fb82b8717B495E61026bE3a2E4508Aa908015 - Products.sol
       // contract-address: 0x20Cb80523c2f89cC29980f688549343B244Bd461 - Manufacturer.sol
-      // contract-address: 0x49CEC6710Ba918760bBdD38eF231F390B431957c - supplychain.sol
+      // contract-address: 0x77d138ADBaE7c03306147f29078c3a1b18C3B779 - supplychain.sol
     },
+    matic: {
+      provider: () => new HDWalletProvider(MNEMONIC, `https://rpc-mumbai.maticvigil.com`),
+      network_id: 80001,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true
+      // contract-address: 0x46025aFCEa9627943aa1aa009BA827eC95D201b6 - supplychain.sol
+      },
     //
     // Useful for private networks
     // private: {

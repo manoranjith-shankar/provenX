@@ -15,6 +15,10 @@ Name: Consumer.sol
   - id[str] as input and returns the product information (name, price, product_description), currentOwner[address].
 2. 
 
+modify the contract in such a way that whenever the manufacturer adds a product, he has to input an 
+manufacturerId (string) - map products to that id. create a new function called getProducts, which takes
+the manufacturerId as input and returns all the products owned by that id.
+
 
 I want you to act as a web3 full stack developer. 
 

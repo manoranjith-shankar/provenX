@@ -21,7 +21,7 @@ function TransferOwnership() {
     event.preventDefault();
 
     const contract = new ethers.Contract(
-      supplychain.networks['8888'].address,
+      supplychain.networks['80001'].address,
       supplychain.abi,
       provider.getSigner(account)
     );
@@ -100,7 +100,7 @@ function TransferOwnership() {
       {/* Display the transaction hash */}
       {transaction && (
         <a
-          href={`https://explorer.volary.io/tx/${transaction}`}
+          href={`https://mumbai.polygonscan.com/tx/${transaction}`}
           target="_blank"
           rel="noopener noreferrer"
           className={styles.link}

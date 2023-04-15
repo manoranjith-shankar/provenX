@@ -17,6 +17,7 @@ function AddProduct() {
   const [productPrice, setProductPrice] = useState('');
   const [productbatchId, setproductBatchId] = useState('');
   const [productDescription, setProductDescription] = useState('');
+  const [manufacturerId, setManufacturerId] = useState('');
   const [Error, setError] = useState('');
   const [transaction, setTransaction] = useState('');
 
@@ -24,7 +25,7 @@ function AddProduct() {
     event.preventDefault();
 
     const contract = new ethers.Contract(
-      supplychain.networks['8888'].address,
+      supplychain.networks['80001'].address,
       supplychain.abi,
       provider.getSigner(account)
     );
@@ -35,12 +36,13 @@ function AddProduct() {
           productName,
           productPrice,
           productbatchId,
-          productDescription
+          productDescription,
+          manufacturerId
         );
-        console.log(result);
         setTransaction(result.hash);
         setError('');
       } catch (err) {
+        console.log(err);
         setError(err.message);
       }
 
@@ -49,6 +51,7 @@ function AddProduct() {
     setProductPrice('');
     setproductBatchId('');
     setProductDescription('');
+    setManufacturerId('');
 
     setTimeout(() => {
       setError('');
@@ -104,13 +107,24 @@ function AddProduct() {
             />
           </div>
           <div>
-            <label htmlFor="productPrice">Product description</label>
+            <label htmlFor="productDescription">Product description</label>
             <input
               type="text"
               step="0.000000000000000001"
-              id="productPrice"
+              id="productDescription"
               value={productDescription}
               onChange={(event) => setProductDescription(event.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="manufactureId">manufacturerId</label>
+            <input
+              type="text"
+              step="0.000000000000000001"
+              id="manufactureId"
+              value={manufacturerId}
+              onChange={(event) => setManufacturerId(event.target.value)}
               required
             />
           </div>
@@ -118,6 +132,18 @@ function AddProduct() {
             Add
           </button>
         </form>
+        
+        {/* Display the transaction hash */}
+        {transaction && (
+          <a
+            href={`https://mumbai.polygonscan.com/tx/${transaction}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link}
+          >
+            Your transaction is successful: {transaction}
+          </a>
+        )}
       </div>
     </div>
   );
